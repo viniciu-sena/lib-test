@@ -1,7 +1,7 @@
 {
   "name": "@viniciu-sena/lib-test",
-  "private": true,
-  "version": "0.0.2",
+  "private": false,
+  "version": "0.0.1",
   "type": "module",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
