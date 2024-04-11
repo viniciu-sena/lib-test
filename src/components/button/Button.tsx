@@ -1,13 +1,12 @@
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-export type ButtonProps = {
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text?: string;
-  primary?: boolean;
-  disabled?: boolean;
+  buttonType?: 'primary' | 'secondary';
   size?: 'small' | 'medium' | 'large';
-  onClick?: MouseEventHandler<HTMLButtonElement>;
-};
+}
 
 const StyledButton = styled.button<ButtonProps>`
   border: 0;
@@ -18,8 +17,9 @@ const StyledButton = styled.button<ButtonProps>`
   font-weight: bold;
   border-radius: 10px;
   display: inline-block;
-  color: ${(props) => (props.primary ? '#fff' : '#000')};
-  background-color: ${(props) => (props.primary ? '#FF5655' : '#f4c4c4')};
+  color: ${(props) => (props.buttonType === 'primary' ? '#fff' : '#363636')};
+  background-color: ${(props) =>
+    props.buttonType === 'primary' ? '#FF5655' : '#f6f6f6'};
   padding: ${(props) =>
     props.size === 'small'
       ? '7px 25px 8px'
@@ -28,26 +28,18 @@ const StyledButton = styled.button<ButtonProps>`
         : '14px 30px 16px'};
 `;
 
-const Button: React.FC<ButtonProps> = ({
-  size,
-  primary,
-  disabled,
-  text,
-  onClick,
-  ...props
-}) => {
+function Button({ size, buttonType, text, onClick, ...props }: ButtonProps) {
   return (
     <StyledButton
       type="button"
       onClick={onClick}
-      primary={primary}
-      disabled={disabled}
+      buttonType={buttonType}
       size={size}
       {...props}
     >
       {text}
     </StyledButton>
   );
-};
+}
 
 export default Button;
